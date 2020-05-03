@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › IDEA 使用外部工具</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="IDEA 使用外部工具">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">IDEA 使用外部工具</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-10-19T16:00:00.000Z">2012年10月20日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>作为神器IDE，绝大部分的功能都已经内置或者通过插件来实现，但依然有一部分的功能无法通过 WebStorm 来完成。比如前端开发，很多的压缩工具使用 JAVA 、 ruby 、 .net 等来编写，你需要在命令行中运行它们，在 WebStorm 不用这么麻烦，可以使用 <a href="http://www.jetbrains.com/idea/webhelp/external-tools.html" target="_blank" rel="noopener">External Tools</a> 功能来便捷的运行。</p>
+<p>此方法也适用于 JetBrains 家的其它 IDE，<a href="http://www.jetbrains.com/idea/" target="_blank">IntelliJ Idea</a>, <a href="http://www.jetbrains.com/pycharm/" target="_blank">PyCharm</a>, <a href="http://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a>, <a href="http://www.jetbrains.com/phpstorm/" target="_blank">PhpStorm</a>, <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a>, <a href="http://www.jetbrains.com/objc/" target="_blank">AppCode</a></p>
+<p><img src="http://blog.jetbrains.com/webide/files/2012/11/available_in_products1.png"></p>
+<p>以 CSS 压缩工具 CSSTidy 为例，介绍配置一个 external tools 的步骤</p>
+<h3 id="一、工具准备"><a href="#一、工具准备" class="headerlink" title="一、工具准备"></a>一、工具准备</h3><p>下载 CSSTidy <a href="http://csstidy.sourceforge.net/download.php" target="_blank" rel="noopener">http://csstidy.sourceforge.net/download.php</a></p>
+<p>新建一个目录，专门用于保存 WebStorm External Tools，把 csstidy.exe 扔到一个目录下，我放在 E:\dropbox\appdata\WebIde50\external_tools\csstidy\csstidy.exe</p>
+<a id="more"></a>
+<h3 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h3><p>Setting -&gt; External Tools -&gt; Add<br><img src="/uploads/2012/10/intellij-ext.png" alt></p>
+<p><strong>参数说明：</strong></p>
+<p><strong>Name</strong> ：CSSTidy （自定义）<br><br><strong>Group</strong>：CSS TOOLS （自定义，出现在右键菜单分组中）<br><br><strong>Description</strong>： 描述，可为空<br><br><strong>Show In</strong> ： 设置你允许该工具出现的地方<br></p>
+<p><strong>Program</strong>：E:\dropbox\appdata\WebIde50\external_tools\csstidy\csstidy.exe<br><br><strong>Parameters</strong> ：$FilePath$ $FileDir$\$FileName$.min.css<br><br><strong>Working directory</strong>： E:\dropbox\appdata\WebIde50\external_tools\csstidy\<br></p>
+<p>Insert macro 按钮是插入一些定义变量，如上 Parameters 中用到的 $FilePath$ $FileDir$</p>
+<h3 id="三、使用"><a href="#三、使用" class="headerlink" title="三、使用"></a>三、使用</h3><p>右键 -&gt; CSS TOOLS -&gt; CSSTidy</p>
+<p><img src="/uploads/2012/10/intellij-ext2.png" alt></p>
+<p><strong>没有快捷键怎么行？</strong></p>
+<p><img src="/uploads/2012/10/intellij-ext3.png" alt></p>
+<p>运行，马上即可以目录下生成一个压缩后的 CSS文件</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/IDEA/">IDEA</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

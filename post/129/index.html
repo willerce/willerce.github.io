@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 桌面自动生成IE图标的解决方法</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="桌面自动生成IE图标的解决方法">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">桌面自动生成IE图标的解决方法</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2010-04-10T16:00:00.000Z">2010年04月11日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>常在河边走，哪有不湿鞋？昨日下载一个街机游戏，金山毒霸马上提示病毒，然后自动删除它。没放在心上，有金山在，我才不怕。但紧接着，发现打开任何程序，桌面上就自动生成了一个IE图标，打开后，就会自动跳到一些网址导航。可以正常删除，但又会自动生成。</p>
+<p>我尝试做了以下操作，均失败，所以推荐你不用再做这些操作了。</p>
+<ol><br>    <li>使用金山清理专家（这二B傻也没找出到）：<strong>失败</strong></li><br>    <li>不得已，下载了一个360安全卫士，提示ab360live的插件，清理！：<strong>失败</strong></li><br>    <li>实在不行了，开始问Google，找到的答案一般都是使用360安全卫士，还信誓旦旦地说肯定可以解决。360的托也太多了吧？：<strong>失败</strong></li><br></ol><br>没法子了，只能自己找了。<br>我先打开<code>C:\Windows\System32</code>，按修改日期排序，把出现问题后修改的文件全部删除。继续找，打开<code>C:\Program Files</code>,看到一个winrar的目录,一直用7-zip，哪来这个文件夹？进去一看，是RarEx.jse这个文件！上Google一搜，貌似是一个用<a href="http://www.hackpro.cn/thread-23996-1-1.html" target="_blank" rel="noopener">JavaScript编写的病毒</a>！删除它。<strong>成功！</strong><br><br>接着问题出现了，我打开大部分程序，都提示<strong>无法找到脚本文件“C:\Program Files\Winrar\RarEx.jse</strong>，继续Google，找到爱毒霸社区的一个帖子，<a href="http://bbs.duba.net/thread-22158669-1-1.html" target="_blank" rel="noopener">解决“桌面图标打不开”金山卫士LNK专杀工具发布</a>。<strong>修复后，一切正常，成功！</strong><br><br>按发生情况来看，我中的应该是<strong>LNK流氓程序。</strong><br><br><strong><span style="font-weight: normal;">LNK流氓的行为：<strong> </strong></span></strong><br><ol><br>    <li>启动浏览器打开域名为jj77.com的流氓网站</li><br>    <li>无法找到脚本”C:\program files\winrar\monitor.jse”</li><br>    <li>替换桌面图标，生成伪装IE桌面图标</li><br>    <li>破坏桌面快捷方式，破坏快捷方式文件的注册表项，如简单清除该病毒，将无法使用快捷方式，无法打开桌面图标。</li><br></ol>
+
+<p><strong>金山卫士LNK专杀工具</strong><br>软件版本：1. 0<br>软件大小：308KB<br>应用平台：Windows 7/vista/XP/2000/<br>下载地址：<a href="http://dl.ijinshan.com/safe/lnkkiller.exe" target="_blank" rel="noopener">http://dl.ijinshan.com/safe/lnkkiller.exe</a></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

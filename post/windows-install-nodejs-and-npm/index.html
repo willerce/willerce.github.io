@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Windows，NodeJS 环境配置</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Windows，NodeJS 环境配置">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Windows，NodeJS 环境配置</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2013-01-27T16:00:00.000Z">2013年01月28日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>真的没见过比 NodeJS 更简单的开发环境搭建了，打开 <a href="http://nodejs.org/download/" target="_blank" rel="noopener">http://nodejs.org/download/</a>  下载适合你的32位或者64位 <strong>Windows Installer (.msi)</strong> 安装包，双击一路狂点下一步，完成！</p>
+<p>WIN + R 键入 CMD 运行，输入 <code>node -v</code> ，成功显示 NodeJS 版本即成功，输入 <code>npm -v</code> 显示 npm 版本号。</p>
+<p>现在，你可以使用 <code>npm install MODULE_NAME</code> 安装你需要包进行开发了。</p>
+<h3 id="满足你的强迫症"><a href="#满足你的强迫症" class="headerlink" title="满足你的强迫症"></a>满足你的强迫症</h3><p><strong>如果你有以下疑问:</strong></p>
+<ol>
+<li>nodejs 这货装哪去了？</li>
+<li>我运行 <code>npm install -g</code> 命令时，这个模块被保存在哪里？</li>
+<li>听说 npm 有 cache 机制，这些 cache 保存在哪里？</li>
+</ol>
+<a id="more"></a>
+<p><strong>我先回答你：</strong></p>
+<ol>
+<li>nodejs 默认安装在 <code>C:\Program Files\nodejs</code> ，如果是 64 位的系统，可能在 <code>C:\Program Files (x86)\nodejs</code> </li>
+<li>npm 默认全局安装的模块保存在 <code>C:\Users\UserName\AppData\Roaming\npm</code> 目录下</li>
+<li>cache 这玩意我也不知道它装哪去了</li>
+</ol>
+<p>我相信你的C盘应该够用，而且这些模块不是微软开发的，绝对不大。</p>
+<p>如果你真的要折腾，接着看吧。</p>
+<ol>
+<li>创建目录 <code>E:\node</code> 、接着创建 <code>c:\node\npm-cache</code>，当然，你可以换到任意的盘符</li>
+<li>复制 <code>C:\Program Files\nodejs</code> 到 <code>E:\node\nodejs</code>，复制 <code>C:\Users\UserName\AppData\Roaming\npm</code> 到 <code>E:\node\npm</code></li>
+<li><p>创建文件 <code>.npmrc</code> 保存到 <code>C:\Users\UserName\.npmrc</code>，</p>
+<pre>
+<code>prefix = E:\node\npm
+cache = E:\node\npm-cache
+</code></pre>
+</li>
+<li><p>打开环境变量 path，找到 <code>C:\Program Files\nodejs</code> 替换成 <code>E:\node\nodejs</code>。找到 <code>E:\Users\UserName\AppData\Roaming\npm</code> 替换成 <code>E:\node\npm</code>。</p>
+</li>
+<li>创建环境变量 <code>NODE_PATH</code>，值为 <code>E:\node\npm\node_modules</code></li>
+</ol>
+<p>大概就是这样，如果修改完发现 <code>node -v</code> 等跑不鸟，请使用<strong>重启大法</strong></p>
+<p>写到最后，我突然感觉到，其实只有我才有这样的强迫症，当年不把这些目录搞清楚，没法开始写 NodeJS。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

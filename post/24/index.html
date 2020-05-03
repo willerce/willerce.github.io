@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Wordpress不同页面显示不同的侧栏.</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Wordpress不同页面显示不同的侧栏.">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Wordpress不同页面显示不同的侧栏.</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2008-06-16T16:00:00.000Z">2008年06月17日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>侧栏（Sidebar）作为一个向访客推荐本站其它内容的重要区域,争对不同内容显示不同的Sidebar就变得尤为重要了。比如在首页的Sidebar放上Feed收藏栏目，最新评论栏目，而在日志页Sidebar放上随机文章、相关文章、最热文章。如果你是一个GG ADER，那么你就可以让首页不显示广告，日志页显示广告。</p>
+<p>以我目前使用的这个THEME为例。它是一个三栏主题，没有使用Widgets，几乎所有的Wordpress模版侧栏内容都包含在sidebar.php文件里。所有页面全部使用这个相同的Sidebar。现在我们动手，让日志页使用 Sidebar2.php。而其它页面使用Sidebar.php</p>
+<p><strong>注意:下文提到的所有PHP文件，都是你目前使用的主题的目录里边的，直接在后台就可以修改。步骤是:进入后台 &gt; 外观 &gt; 主题编辑器 &gt;  然后在右侧的模版文件列表里就可以选择要修改的文件,进行操作了.</strong></p>
+<p>我们先来做个学习小培训，看single.php里的两行PHP语言:</p>
+<p><pre lang="php" line="1"><br>&lt; ?php get_sidebar(); ?&gt;<br>&lt; ?php get_footer(); ?&gt;<br></pre><br>这两行所表示的分别是调用侧栏sidebar.php和页脚footer.php文件。大家应该都可以很容易的明白它。</p>
+<p></p><h2><strong>两种情况:</strong></h2><br><strong>①如果你不使用Widgets，那么很简单.只要两步。</strong><p></p>
+<p><strong>建立一个Sidebar2.php文件</strong>,你只要将sidebar.php文件里的内容全部复制到sidebar2.php里就可以了。这里有一个快捷的方法,用FTP工具将空间上的Sidebar.php文件下载到本地并重命名为Sidebar2.php，然后上传，上传目录为模版目录.<br>然后,将你的日志页single.php文件里的</p>
+<p><pre lang="php">&lt; ?php get_sidebar(); ?&gt;</pre><br>修改为</p>
+<p><pre lang="php">&lt; ?php include_once(“sidebar2.php”); ?&gt;</pre><br>现在,你可以根据自己的喜好,更改sidebar2.php里的内容。来实现更改日志页的侧栏了。</p>
+<p><strong>②如果你使用Widgets,那么也挺简单.只多了两步.</strong></p>
+<p>先按上文的方法操作一遍。</p>
+<p>接着打开functions.php,找到类似这样的.</p>
+<p><pre lang="php" line="1"><br>if ( function_exists(‘register_sidebar’) )<br>    register_sidebar(array(<br>        ‘before_widget’ =&gt; ‘<li id="%1$s" class="widget %2$s">‘,<br>        ‘after_widget’ =&gt; ‘</li>‘,<br>        ‘before_title’ =&gt; ‘<h2 class="widgettitle">‘,<br>        ‘after_title’ =&gt; ‘</h2>‘,<br>));<br></pre><br>上面是一段函数，定义了一个Widget，现在，我们按它的格式，再写一次，这样，就多出一个Widget出来了。为了区别开来，第二个Widget应该要有一个名字。我们这样写，在本例中，我们将它命名为<strong>sidebar2</strong></p>
+<p><pre lang="php">‘name’ =***; ‘名字’</pre><br>整个函数定义要这样写：</p>
+<p><pre lang="php" line="1"><br>&lt; ?php<br>if ( function_exists(‘register_sidebar’) )<br>    register_sidebar(array(<br>        ‘name’ =&gt; ‘sidebar2’,<br>        ‘before_widget’ =&gt; ‘<li id="%1$s" class="widget %2$s">‘,<br>        ‘after_widget’ =&gt; ‘</li>‘,<br>        ‘before_title’ =&gt; ‘<h2 class="widgettitle">‘,<br>        ‘after_title’ =&gt; ‘</h2>‘,<br>));<br></pre><br>将上面些内容加到原先的Widget定义后面。<br>现在,你需用将sidebar2.php中原来调用默认Widgets的代码改为调用我们刚刚新建的sidebar2 Widgets。找开Sidebar2.php 找到这样的代码.</p>
+<p><pre lang="php" line="1"><br>&lt; ?php if ( function_exists(‘dynamic_sidebar’) &amp;&amp; dynamic_sidebar() ) : else : ?&gt;<br>&lt; ?php endif; ?&gt;<br></pre><br>将它修改为</p>
+<p><pre lang="php" line="1"><br>&lt; ?php if ( function_exists(‘dynamic_sidebar’) &amp;&amp; dynamic_sidebar(sidebar2) ) : else : ?&gt;<br>&lt; ?php endif; ?&gt;<br></pre><br>好了,现在,你去后台的Widget设置中,会发现,在下拉列表中多出一个Widget了.它的名字为Sidebar2,现在你需要为他添加上一些东西.</p>
+<p>如果你需要在更多的页面使用不同的sidebar.方法是相同.请举一反三,如果无法举一反三,就举个砖头往脑袋上拍吧!<br>目前,我在我所使用的博客测试通过,欢迎大家测试.有什么问题.欢迎留言.</p>
+<p>如果你的两个侧栏的内容差不多，比如首页显示友情链接，其它页不显示。<br>MG12那儿一个比较简便的方法：<a href="http://www.neoease.com/show-different-widgets-in-wordpress-sidebar/" target="_blank" rel="noopener">http://www.neoease.com/show-different-widgets-in-wordpress-sidebar/</a></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/wordpress/">wordpress</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

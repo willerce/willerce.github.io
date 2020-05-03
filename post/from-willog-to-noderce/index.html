@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 从 Willog 到 Noderce</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="从 Willog 到 Noderce">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">从 Willog 到 Noderce</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-08-10T16:00:00.000Z">2012年08月11日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>自从换掉  Wordpress 以后，就注定要挖各种各样的坑，用 C# / Nancy 写的 <a href="https://github.com/willerce/willog" target="_blank" rel="noopener">Willog</a> 因为 Godaddy 太慢，没有合适的 Win 主机等各种原因早已经有了用别的语言重写的想法。于是就有了  <a href="https://github.com/willerce/noderce" target="_blank" rel="noopener">Noderce</a> </p>
+<p>新手入门，挑着简单、资料多的来，使用了 Express 框架，直接用 JSON 格式文件做存储，各外，优雅的 Markdown 支持是不可少的。</p>
+<p>###一点点说明</p>
+<ul>
+<li>/storage/ 所有的 json 文件都保存在这个目录里</li>
+<li>/storage/user.json 保存着用户名密码，存储的密码是用 MD5 加密一次，初始用户名密码都是： admin</li>
+<li>/storage/timeline.json 是所有文章的数组，文件的前后排序也靠它控制</li>
+<li>/storage/post 目录里放的是所有文章</li>
+<li>/storage/page 目录里放的是自定义页面，比如：关于、链接之类的页面</li>
+<li>/storage/recycle-bin 目录是回收站，当你的文章别名改掉的时候，旧的 JSON 文件会被移到这里来，亲，给加个 <strong>一键清理回收站</strong> 功能呗？</li>
+</ul>
+<p>###运行</p>
+<p>只需装好nodejs环境，命令： node app.js 即可运行</p>
+<p>Github Repository URL :  <a href="https://github.com/willerce/noderce" target="_blank" rel="noopener">https://github.com/willerce/noderce</a></p>
+<p>###更新</p>
+<ul>
+<li>2012-09-01：Noderce 的已经改用 mongodb 做数据存储，本文的使用说明不再适用。！！！</li>
+<li>2014-03-13: Noderce 已经停止开发。<a href="http://willerce.com/post/noderce-has-been-discontinued">http://willerce.com/post/noderce-has-been-discontinued</a></li>
+</ul>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/Noderce/">Noderce</a>, <a class="mod-post__tag" href="/tags/nodejs/">nodejs</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

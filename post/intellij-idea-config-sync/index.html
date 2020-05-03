@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › IDEA 配置同步</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="IDEA 配置同步">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">IDEA 配置同步</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-11-19T16:00:00.000Z">2012年11月20日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>IDEA 这样的神器在很多情况下比 VIM 强上不少，但依然需要不断的调教才能越来越称手。在公司配置好的设置、功能，回家又要再来一次？那得多蛋疼，配合强大的 <a href="http://db.tt/6twEjo1X" target="_blank" rel="noopener">Dropbox</a> 来帮你自动保存配置吧。</p>
+<p>此方法也适用于 JetBrains 家的其它 IDE，<a href="http://www.jetbrains.com/idea/" target="_blank">IntelliJ Idea</a>, <a href="http://www.jetbrains.com/pycharm/" target="_blank">PyCharm</a>, <a href="http://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a>, <a href="http://www.jetbrains.com/phpstorm/" target="_blank">PhpStorm</a>, <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a>, <a href="http://www.jetbrains.com/objc/" target="_blank">AppCode</a></p>
+<p><img src="http://blog.jetbrains.com/webide/files/2012/11/available_in_products1.png"></p>
+<p>###弄清楚默认配置文件路径</p>
+<ol>
+<li>Windows XP 保存在这 <system drive>\Documents and Settings\<user account name>.IntelliJIdeaXX</user></system></li>
+<li>Windows Vista, Windows 7, Windows 8 保存在 <system drive>\Users\<user account name>.IntelliJIdeaXX</user></system></li>
+<li>Unix/Linux 保存在 ~/.IntelliJIdeaXX  (~ 就是 /home/<user name> 目录)</user></li>
+<li>Mac 保存在 ~/Library/Preferences/IntelliJIdeaXX</li>
+</ol>
+<a id="more"></a>
+<p>####补充说明</p>
+<ul>
+<li>XX 表示产品的版本，它可能是 (70, 80, 90, 10, 11, 12)</li>
+<li>如果是 IntelliJ IDEA Community，那么文件名就是 IdeaICXX.</li>
+<li>Jetbranis 家的其它 IDE 大概也这么回事，但文件夹名称不同。 WebStorm/PhpStorm 文件夹名是WebIde，PyCharm和RubyMine名称就是自己。</li>
+<li>官方说明：<a href="http://devnet.jetbrains.net/docs/DOC-181" target="_blank" rel="noopener">http://devnet.jetbrains.net/docs/DOC-181</a></li>
+</ul>
+<p>###复制到Dropbox，并修改设置</p>
+<p>关闭IDEA，从你的默认配置目录里剪切 config 这个目录到你的 Dropbox 目录。</p>
+<p>打开 IDEA目录\bin\idea.properties，找到 15 行，把 idea.config.path 前面的 # 号去掉，= 号后面的路径修改成前的配置文件夹的目录。记得把路径中的 “\” 换成 “/“ 。</p>
+<p><img src="/uploads/2012/11/idea.config.path.png" alt></p>
+<p>第二天到公司把 idea.properties 照着改一次。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/IDEA/">IDEA</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

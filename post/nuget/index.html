@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Nuget，Visual Stuido 的包管理工具</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Nuget，Visual Stuido 的包管理工具">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Nuget，Visual Stuido 的包管理工具</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2011-10-28T16:00:00.000Z">2011年10月29日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>NuGet 读作 New-Get， 是一个 Visual Studio 的扩展。可以让你在 Visual Studio 项目中，方便的增加、移除库或工具。如果你计划向其它开发者共享你开发的库或工具时，你可以创建一个 Nuget  包保存在 Nuget  仓库中开，也可以使用 Nuget 创建一个自己的团队的 Nuget Server，来保存自己的团队库、工具。</p>
+<p>##安装 Nuget</p>
+<p>在 Visual Studio 中，点击 <span style="text-decoration: underline;">Tools</span>  选择 <span style="text-decoration: underline;">Extension Manager</span> ，在 Extension Manager 对话中，选择 <span style="text-decoration: underline;">Online Gallery</span> ，并在搜索框中键入： nuget ， 选择 NuGet Package Manager 点击 <span style="text-decoration: underline;">Download</span>。</p>
+<p><img title="extension-manager-with-nuget" src="/uploads/2011/10/extension-manager-with-nuget.png" alt></p>
+<p>下载完成后，在安装界面吕，点击  Install 按钮重启 Visual Studio 。</p>
+<p>你还可以在 <a href="http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c" target="_blank" rel="noopener">Visual Studio Gallery</a> 下载到 .vsix 文件后安装 Nuget。</p>
+<p>##管理 Nuget Package</p>
+<p class="note">通过窗体管理 Nuget Package 是最容易上手的方法，前提是你的 Visual Stuido 找开了一个解决方案。做为一种可选方案，你也可以使用命令来管理 Package。</p>
+
+<p>###使用窗口查找、管理包<br>在 Solution Explorer 中，右键 References ，选择 Manage Nuget Packages。（在网站项目中，右键 Bin 目录）</p>
+<p><img src="/uploads/2011/10/manage-nuget-packages-online-tab.png"></p>
+<p>马上，你就可以看到目前可以下载使用的所有的 Package 列表，选择你需要的包，点击 install ，Nuget 会将包下载到项目的 packages 目录下。并自动在你所选择的项目中引用这个包。</p>
+<p>如果你要删除或更新一个包，同样在 References 右键选择 Manage Nuget Packages ，找到已经安装的包，选择 Uninstall 或 Update 即可。</p>
+<p>###使用命令查找、管理包</p>
+<p>点击 Tools ，移到 Library Package Manager 上，选择  Package Manager Console，就可以看到Package Manager Console 窗口了。也可以通过 ‘View &gt; Other Windows &gt; Package Manager Console’调出窗口。</p>
+<p><img src="/uploads/2011/10/package-manager-console-empty-window.png"></p>
+<p>键入命令： <code>Get-Package -ListAvailale</code></p>
+<p><img title="package-manager-console-get-package-remote" src="/uploads/2011/10/package-manager-console-get-package-remote.png"></p>
+<p>找到你需要的包，例如： EntityFramework，键入命令： <code>Install-Package EntityFramework</code> 即可安装引用。</p>
+<p>以上简单介绍了Nuget 的使用，更多文档，请查看： <a href="http://docs.nuget.org/" target="_blank" rel="noopener">http://docs.nuget.org/</a></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/csharp/">csharp</a>, <a class="mod-post__tag" href="/tags/nuget/">nuget</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 从 Wordpress 到 Willog</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="从 Wordpress 到 Willog">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">从 Wordpress 到 Willog</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-06-15T16:00:00.000Z">2012年06月16日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>从 08 年开始，用 Wordpress 已经有四个年头了，博客早已经升级为大姨妈，正巧放在 <a href>Francis.TM</a> 那的 VPS 数据没掉了，于是下定决心，自己写了一个，这个想法早已经产生了一年多了有木有，我的拖延症是有多么的严重啊。</p>
+<p>好吧，我的博客正式进入 Willog 时代了，Willog 是我使用 C# 编写的一个博客程序，Willog 使用了一群大牛在维护的 MVC 框架 —— <a href="https://github.com/NancyFx/Nancy" title="Nancy" target="_blank" rel="noopener">Nancy</a> ，还使用了另一位大牛 <a href="http://blog.markrendle.net/" target="_blank" rel="noopener">markrendle</a> 在维护的ORM框架 —— <a href="https://github.com/markrendle/Simple.Data" title="Simple.Data ORM" target="_blank" rel="noopener">Simple.Data</a> 。抛弃了传统ASP.NET 使用的“三层框架”，把逻辑，数据库访问全扔到 Action 里了，对这样的小程序来说真是再适合不过了。对于已经华丽丽滴转身为“前端工程师”的我来说，C# 真他妈太优雅了，JS 就是一坨狗屎堆起来的一大坨狗屎。</p>
+<p>写了一个 Action，把原先的 Wordpress 的数据库转换过来，再将评论导到 <a href="http://disqus.com/" title="DISQUS" target="_blank" rel="noopener">DISQUS</a>，把那些乱七八糟的分类丢掉真是开心，Markdown 语法写起来各种酥服（记性太烂，要对着 <a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">Markdown 语法说明</a> 写）。</p>
+<p><a href="https://github.com/NancyFx/Nancy" title="Nancy" target="_blank" rel="noopener">Nancy</a> 和 <a href="https://github.com/markrendle/Simple.Data" title="Simple.Data ORM" target="_blank" rel="noopener">Simple.Data</a> 都可以在 Mono 下跑得很欢，但我现在还很可耻的使用着狗爹的 Windows 主机，有时间的话可以折腾一下，嗯，我是说有时间的话。</p>
+<p>用 Nancy 除了因为它可以非常自由的定义 router 以外，还因为这个原因，代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public AdminModule(IDBFactory dbFactory) : base(dbFactory, &quot;/admin&quot;)</span><br><span class="line">&#123;</span><br><span class="line">    Get[&quot;/&quot;] = _ =&gt; View[&quot;AdminHome&quot;];</span><br><span class="line"></span><br><span class="line">    Get[&quot;/post/add&quot;] = _ =&gt; View[&quot;PostAdd&quot;];</span><br><span class="line"></span><br><span class="line">    Get[&quot;/post/edit/&#123;id&#125;&quot;] = _ =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        var post = DB.Post.Get(_.id);</span><br><span class="line">        return View[&quot;PostEdit&quot;, post];</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一个路由，把参数命名为下划线，合起来就像一个笑脸 = _ =  ，看着就很欢乐。</p>
+<p>现在还有一些功能没加上，比如标签归档，友情链接。<a href="https://github.com/willerce/Willog/" title="Willog" target="_blank" rel="noopener">Willog</a> 代码早已经扔到 Github 上，欢迎围观。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/willog/">willog</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

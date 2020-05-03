@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Wordpress一个主题多个样式表</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Wordpress一个主题多个样式表">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Wordpress一个主题多个样式表</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2008-07-15T16:00:00.000Z">2008年07月16日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>记得前段日子写了篇《<a href="http://willerce.com/2008/06/differ-page-differ-sidebar/"> Wordpress不同页面显示不同的侧栏.</a>》。通过该办法，使实了Wordpress不同页面显示不同的布局。今天，我来给大家分享一个教程，一个主题使用多个样式表，并可以在页面上快速切换，你可能已经见过了这样的主题，如果你还不明白它有什么用处。那么你可以看看下面几个例子。通过点击页面右上角落上不同颜色的小图，就可以改变主题的配色。 </p>
+<blockquote><br><a href="http://wpthemes.blogohblog.net/index.php?wptheme=Xplosive+Reloaded" target="_blank" rel="noopener">Xplosive Reloaded</a><br><a href="http://wpthemes.blogohblog.net/index.php?wptheme=Wicked+Lemon" target="_blank" rel="noopener">Wicked Lemon</a><br><a href="http://www.wpdesigner.com/demo/index.php?preview=Wpdesigner7" target="_blank" rel="noopener"> Wpdesigner7</a></blockquote> 
+
+<p>如何实现这样的功能呢？每一个WordPress主题都有一个style.css文件，你可以查看一下自己目前用的主题文件目录下是否有个style.css。.css是一个的样式表文件，它定义了主题的颜色，字体，等等等等，如果你不明白CSS是什么，那么你可以看看<a href="http://tech.163.com/05/1020/11/20GKABHL00091589.html" target="_blank" rel="noopener">&lt; strong&gt;什么是CSS？它的能做些什么？</a>。通常是在主题的header.php文件里有这样的一段代码。 </p>
+<pre lang="html" line="1"><link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen"></pre> 
+这是代码表示这个主题调用CSS,并且指出了CSS文件的地址。
+
+明白了这些，我们开始。新建一个CSS文件，根据原先主题的CSS，更改外观或布局。例如，你可以改变颜色的背景，字体，定位工具栏，页眉图像等，（CSS修改不在本文的讨论范围）你新建的CSS文件，将成为你主题的第二个样式表，以供页面上风格切换的调用，你应该为它取个名字，比如 blue.css。我们应该像默认的CSS文件那样，在header.php声明一下，如下面这段代码。 
+<pre lang="html" line="1"> <link rel="alternate stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/blue.css" media="screen" title="blue"> </pre> 
+现在，在header.php中声明了blue.css文件的存在，CSS文件也有了，但是，我们暂时没有使用它，它只是个替补，我们采用 JavaScript以供页面上样式切换功能的实现。
+
+我们需要一个JS文件，<a href="http://www.blogohblog.com/request/styleswitcher.js" target="_blank" rel="noopener">点击下载 styleswitcher.js</a>，并将它放在主题目录下。
+
+继续编辑header.php，在标签前面加上调用这个js文件的代码：
+ <pre lang="html" line="1"> <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/styleswitcher.js"></script> </pre> 
+
+<p>好了，现在你只要加页面上加入一个链接，或者是个按钮，点击后就可以切换了。下面代码供参考。</p>
+<pre lang="html" line="1"> <a style="color:#ffffff;" title="Blue" onclick="setActiveStyleSheet('blue'); return false;" href="#">Blue</a> </pre>
+
+<p>好了。教程到这里结束了。 :neutral:<br>英文原文教程地址：<a href="http://www.blogohblog.com/integrating-alternative-stylesheets/" target="_blank" rel="noopener">http://www.blogohblog.com/integrating-alternative-stylesheets/</a></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/wordpress/">wordpress</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

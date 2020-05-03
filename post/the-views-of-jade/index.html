@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 对 Jade 的一些看法</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="对 Jade 的一些看法">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">对 Jade 的一些看法</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2013-03-30T16:00:00.000Z">2013年03月31日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>作为 Express 的默认模版，Jade 进入了我的视野，如同习惯了 Javascript 的语法，再见到 Coffescript 时的惊艳。优雅、简单是对 Jade 的第一印象，在 Github 上拥有4K的Star足见其受欢迎的程度。</p>
+<p>我在刚开发 Noderce 时就用上了 Jade，经过一番学习使用起来倒没有什么问题，但使用 Jade 这个过程并不像想象中的愉快，我遇到了一些的问题，并且耗费在写HTML上的时间有所增加。在之后的 Node.js 项目中我改用 EJS，非常的舒适习惯、效率很高。</p>
+<p>我整理了自己使用 Jade 后的一些看法，希望对大家在选择模版引擎时有所帮助。</p>
+<p>###不能减少你的输入</p>
+<p>这是 Jade 官网给的示例</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">doctype 5</span><br><span class="line">    html(lang=&quot;en&quot;)</span><br><span class="line">    head</span><br><span class="line">        title= pageTitle</span><br><span class="line">        script(type=&apos;text/javascript&apos;)</span><br><span class="line">        if (foo) &#123;</span><br><span class="line">            bar()</span><br><span class="line">        &#125;</span><br><span class="line">    body</span><br><span class="line">        h1 Jade - node template engine</span><br><span class="line">        #container</span><br><span class="line">        if youAreUsingJade</span><br><span class="line">            p You are amazing</span><br><span class="line">        else</span><br><span class="line">        p Get on it!</span><br></pre></td></tr></table></figure>
+<p>太棒了，相对手写HTML减少了大量的输入，并且漂亮、缩进清晰、层级明了。但是，似乎用 zencoding 的话，输入量应该是在一个层级，仅看 HTML 部分的话，使用 zencoding 输入量更少。我只需要输入以下内容，以及少许的光标移动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">html:5</span><br><span class="line">script</span><br><span class="line">h1</span><br><span class="line">#container</span><br><span class="line">p</span><br></pre></td></tr></table></figure>
+<p>在逻辑方面， Jade 做得不错，不需要<code>&lt;%%&gt;</code>这样的额外的输入。但总体来说，Jade 并不能降低输入量。</p>
+<p>###可移植性低</p>
+<p>当你的项目使用了一些别的地方拷贝过来的HTML代码时，你需要使用 html2jade 这样的工具来进行转换后才能使用。</p>
+<p>###调试困难</p>
+<p>如果页面中某部分出了问题，首先前端会通过 firebug 定位问题出在哪里，如果是普通模板，直接就找到源码中的目标位置了，如果使用了此类模板，好吧，先用脑子翻译成这种模板，然后再去找目标位置，如果页面复杂，这种转换需要的时间也就更长。<a href="http://segmentfault.com/q/1010000000182353#a-1020000000182406" target="_blank" rel="noopener">via</a></p>
+<p>###性能低</p>
+<p><a href="http://cnodejs.org/topic/50e70edfa7e6c6171a1d70fa" target="_blank" rel="noopener">WEB模板jade、ejs、handlebars 万行代码解释效率比较，jade完败</a></p>
+<p>这篇文章提供的效率比较结果（平均消耗时间，约数）<br>jade 287ms &gt; ejs 43ms &gt; handlebars 28ms</p>
+<p>性能不应该成为不使用 Jade 的原因，但快一点总是好的，对吧？</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/jade/">jade</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

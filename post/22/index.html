@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 回想当初学习Discuz!及介绍EasyAPM-Serve</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="回想当初学习Discuz!及介绍EasyAPM-Serve">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">回想当初学习Discuz!及介绍EasyAPM-Serve</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2008-06-12T16:00:00.000Z">2008年06月13日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>06年9月份加入了学校的青橄榄文学社，担任“设计”一职，所谓“设计”就是排版。而负责老师这样说：“除了封面，要尽量少用图，文学是一种艺术，太花俏会影响到内容。“  这位老师的话不是本文重点。重点是，当时的我，想利用这一学校的唯一“媒体”，创建一个学校的网上聚居点。于是，在这样的条件下，我开始去了解、学习、使用Discuz ! 论坛程序。</p>
+<p>Discuz !（下文简称DZ）是一个相当成熟、易用的论坛程序。许多非专业性的论坛站长对PHP，HTML等了解甚少，但却搭建起了一个人气相当旺的论坛，这在于DZ的易用性与丰富的第三方插件与模版，同时Discuz! support team也出品了相当多的作品，现在我也是Discuz! support team风格组的成员之一。</p>
+<p>如果你对Discuz ! 有兴趣，你可以到<a href="http://www.discuz.net" target="_blank" rel="noopener">Discuz官方论坛</a>看看，也可以进入 <a href="http://www.17dst.com/bbs.php" target="_blank" rel="noopener">Discuz! support team</a> 论坛瞧瞧！</p>
+<p>记得去年DST还是想当的火。当时值DZ 6.0发布之际，团队里面临了许多的插件、风格升级任务。在那段时间，我成长了许多，在些感谢DST的 <strong>缘亦如此</strong>、<strong>小七</strong>、<strong>水月</strong>、还有团队的大大，<strong>伊泽浩</strong>。</p>
+<p>而我在升级风格过程中，需要本地测试，于是翻出了EasyAPM-Serve，其实当时并不知道他的名字。这个名字我也是今天才听到，我当时用的比较旧的版本可以，在看到EasyAPM-Serve出口人是micronsky.net时才敢确定。而micronsky.net是这个环境套件的Mysql密码。现在micronsky.net已经关闭，进入后是一个广告停靠页，请不要访问。</p>
+<p>介绍一下<strong>EasyAPM-Serve</strong>:<br>EasyAPM-Server 是 Win2000(XP/2003) 系统下的 Apache+PHP+MySQL 运行环境快速集成安装套件，是使用开源及免费软件组合的预配置服务器运行环境，适合服务环境快速建立，本套件是免费软件，遵循 GPL (GNU General Public License) 协议，所有包含软件下载于官方网站，无任何后门或广告程序.<br>包含以下程序：<br>Apache v2.0.55 (Win32)<br>PHP v5.0.5 (Win32)<br>Zend Optimizer v2.5.10a (Win32)<br>MySQL v5.0.15 (Win32)<br>phpMyAdmin v2.6.4-pl4<br>AcrivePerl v5.8.7.815</p>
+<p>下载地址在文未，下载后，双击安装，不要改变它的安装路径。安装完成后它将自动开启服务。<br>目录简要说明：<br>D:\usr\　　　　　　　　　 套件安装目录<br>|<br>+–\tmp\　　　　　　　 临时文件目录<br>|<br>+–\local\　　　　　　 程序目录<br>|　|<br>|　+–\apache2\　　　　Apache2 程序目录<br>|　|<br>|　+–\mysql4\　　　　 MySQL 程序目录<br>|　|　|<br>|　|　+–\data\　　　　MySQL 数据目录<br>|　|<br>|　+–\php4\ 　　　　　PHP4 解释器目录<br>|　|<br>|　+–\zend\　　　　　 Zend Optimizer 程序目录<br>|<br>+–\www\　　　　　　　　网站默认根(/)目录(文档目录)<br>|<br>+–\phpmyadmin\　　phpMyAdmin 目录<br>|<br>+–\doc\　　　　　　文档目录 (强烈建议阅读)<br>MySQL 数据库初始帐密:用户名: root ；密码: micronsky.net ，安装后请使用 phpMyAdmin 修改密码。<br>安装完成后，WWW目录下的PHPMYADIMN文件不要删除。可以进入<a href="http://127.0.0.1/phpmyadmin" target="_blank" rel="noopener">http://127.0.0.1/phpmyadmin</a> 进行表创建，密码修改等操作。</p>
+<p>下载地址：中国站长下载:<a href="http://down.chinaz.com/soft/9448.htm" target="_blank" rel="noopener">http://down.chinaz.com/soft/9448.htm</a></p>
+<p>PS：下午翻出一个缘亦如此去年设计的模版，Templates由我完成，当时做了大概90%就不做了，下午来了性子将他补上，现在还有一两个BUG。其实不能说BUG，就是输入框的渐变色还没做，准备这一两天有空了就做完它。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/discuz/">discuz</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

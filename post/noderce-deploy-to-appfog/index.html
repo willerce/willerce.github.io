@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Noderce AppFog 部署指南</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Noderce AppFog 部署指南">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Noderce AppFog 部署指南</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-12-29T16:00:00.000Z">2012年12月30日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>Pass 云平台可以使我们非常快速的部署我们的应用程序而不需要太多的精力花费在配置系统环境上。目前，我的博客部署在 AppFog 上，AppFog 目前使用来看会偶尔宕机，但一般很快就能恢复。</p>
+<p>有 V2EX 上发了一个帖子介绍了一个 Noderce，得到了一些关注，所以写个 AppFog 部署指南给大家。</p>
+<h3 id="1-AppFog-管理工具"><a href="#1-AppFog-管理工具" class="headerlink" title="1. AppFog 管理工具"></a>1. AppFog 管理工具</h3><p>AF CLI TOOL 是使用 ruby 编写的命令行工具，可以运行在 Mac, *nix, Windows 上。通过它，可以创建应用、服务、查看应用日志等一系列的功能。 官方有非常详细的安装说明，请查询。<a href="https://docs.appfog.com/getting-started/af-cli" target="_blank" rel="noopener">https://docs.appfog.com/getting-started/af-cli</a></p>
+<a id="more"></a>
+<h3 id="2-创建你的应用"><a href="#2-创建你的应用" class="headerlink" title="2. 创建你的应用"></a>2. 创建你的应用</h3><p>最基本的，你需要先<a href="https://console.appfog.com/" target="_blank" rel="noopener">注册</a>一个帐号，注册完成后，进入 <a href="https://console.appfog.com/" target="_blank" rel="noopener">https://console.appfog.com/</a> ，点击New App，在 New App 页面中你可以看到app创建分三歩走：</p>
+<ol>
+<li>选择一类应用，我们看到有三种支持的nodejs应用，nodejs，node chat node express，不管你是否使用了node express，选第一个nodejs都可以，关键是你在上传代码时加上所有你依赖的库，也就是node moudles那个文件夹放到代码跟目录即可。</li>
+<li>选择一个服务器所有地区，建议使用美国的AWS，可以享受更多的第三方服务，比如 MongoLab .</li>
+<li>输入你的app子域名，也就是你给你的app起的名称。</li>
+</ol>
+<p>之后，点击Create App，你会看到一个进度列表，当你看到‘done’后，你的应用就创建完毕了，简单吧。接下来，你将进入配置界面。</p>
+<h3 id="3-创建数据服务"><a href="#3-创建数据服务" class="headerlink" title="3. 创建数据服务"></a>3. 创建数据服务</h3><p><strong> 3.1. 使用AppFog自带的 Mongodb 服务</strong></p>
+<p>很大一部分的web应用还是需要数据库的，appfog提供了三种数据引擎，mongodb，postgresql，mysql。Noderce 使用的是 Mongodb，点击左侧边栏Services，选择一种数据服务，在下面输入名字，点击 Create 即可。</p>
+<p><img src="/uploads/2012/12/appfog-service.jpg"></p>
+<p><strong>注意</strong>，还没有完，你需要将创建的服务和应用绑定(Bind)才能使用，稍等片刻，AppFog 会自动给你绑定上。</p>
+<p><strong>3.2. 使用第三方提供的 Mongodb 服务</strong></p>
+<p>AppFog add-on 中的 MongoLab 提供 MongoDB 存储服务， Install 之后即可使用。非常简单，MongoLab 还提供的简易的管理界面。推荐使用。</p>
+<h3 id="4-修改代码并上传"><a href="#4-修改代码并上传" class="headerlink" title="4. 修改代码并上传"></a>4. 修改代码并上传</h3><p>克隆一份代码回来。</p>
+<p><code>git clone git@github.com:willerce/noderce.git</code></p>
+<p>复制一份config.default.js，保存为 config.js，根据注释，修改参数。</p>
+<p>如果你选择的是 MongoLab 提供的 MongoDB 存储服务，不需要修改数据库连接串，即可使用。</p>
+<p>如果你选择的是 AppFog 提供的 MongoDB 存储服务，你需要在把 mongodb settings for appfog mongodb service 那部分代码去注释。<br>并删除 mongodb settings for mongolab 部分</p>
+<p>修改完成后，打开命令行进行 noderce 目录，上传到 af 上</p>
+<pre><code>$ af login //使用你的 appfog 账号登录
+$ af update appName  // 这里的 appName 是你创建的应用名称
+</code></pre><p>提醒： 第一次 af update 可能较慢，耐心等待，如果出现503，404错误等，重新尝试几次</p>
+<h3 id="5-从-Appfog-面板修改-Noderce-设置"><a href="#5-从-Appfog-面板修改-Noderce-设置" class="headerlink" title="5. 从 Appfog 面板修改 Noderce 设置"></a>5. 从 Appfog 面板修改 Noderce 设置</h3><p>Noderce 支持 Environment 配置来修改 Cookie Name, SESSION_SECRET， COOKIE_SECRET，以及主题名称，这个操作不是必须的，但我们能够这么做。</p>
+<p>从 console.appfog.com 可以管理 Environment 配置。</p>
+<p><img src="/uploads/2012/12/noderce-env.jpg"></p>
+<h3 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h3><p>本文使用了 <a href="http://www.imjustfly.net/article/50337a39bfd308c251000001" target="_blank" rel="noopener">AppFog拎包入住指南</a> 部分文字，这篇文章有更详细的 AppFog 部署说明，推荐阅读。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/Noderce/">Noderce</a>, <a class="mod-post__tag" href="/tags/nodejs/">nodejs</a>, <a class="mod-post__tag" href="/tags/Appfog/">Appfog</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

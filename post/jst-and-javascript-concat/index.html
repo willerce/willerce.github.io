@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 合并 Template 和 Javascript</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="合并 Template 和 Javascript">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">合并 Template 和 Javascript</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2013-05-17T16:00:00.000Z">2013年05月18日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>目前手头上负责的项目已经开发两年多了，刚开始那会儿，require.js 大家还不太熟悉，backbone 还没周岁，项目的模块化加载是基于 head.js 基础上加入了 css 加载的几近纯手工方式，打包的时候，需要根据用途进行JS合并。使用的是模版引擎是 underscore 自带的 tempalte。</p>
+<h3 id="项目原有的加载问题"><a href="#项目原有的加载问题" class="headerlink" title="项目原有的加载问题"></a>项目原有的加载问题</h3><p>模版的获取、渲染流程是这样的</p>
+<p>通过工具中定义了一个获取模版文件的方法<code>CustomGetTemplateFn</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//utils.js</span></span><br><span class="line"><span class="keyword">var</span> CustomGetTemplateFn = <span class="function"><span class="keyword">function</span> (<span class="params">templateFileName</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> template = $.ajax(&#123;</span><br><span class="line">		url: <span class="string">"./template/"</span> + templateFileName + <span class="string">".tpl"</span>,</span><br><span class="line">		dataType: <span class="string">"script"</span>,</span><br><span class="line">		<span class="keyword">async</span>: <span class="literal">false</span></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> _.template(template);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>图片模块中使用到了模版文件 book.html</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//BookModule.js</span></span><br><span class="line"><span class="keyword">var</span> BookModule = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> el = CustomGetTemplateFn(<span class="string">'book.html'</span>)(obj);</span><br><span class="line">    $(el).appendTo($(<span class="string">'body'</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们遇到了几个问题。</p>
+<ol>
+<li><code>CustomGetTemplateFn()</code> 方法中的 <code>$.ajax()</code> 使用了同步方法，这将导致步请求将锁住浏览器；</li>
+<li>由于跨域限制，模版文件无法部署到 CDN 上；</li>
+<li><code>_.template()</code> 众所周知的性能较差；</li>
+<li>还有其它的常见优化问题：文件压缩、请求合并、按需加载。</li>
+</ol>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>我能想到的最简单解决办法就是：预编译、按模块加载模版文件实现<strong>粗粒度</strong>的按需加载。</p>
+<p>最后，我决定使用 <a href="https://github.com/gruntjs/grunt-contrib-jst" target="_blank" rel="noopener">grunt-contrib-jst</a> 将模版文件编译成 JST 文件，然后从模块代码中读出使用到的模版JST文件拼接到头部。于是我编写了 <a href="https://github.com/willerce/grunt-jst-concat" target="_blank" rel="noopener">grunt-jst-concat</a> 这个插件，通过是正则检索出 Javascript 代码中使用到的模版文件，并将之合并。</p>
+<p>Github: <a href="https://github.com/willerce/grunt-jst-concat" target="_blank" rel="noopener">https://github.com/willerce/grunt-jst-concat</a></p>
+<h3 id="使用介绍"><a href="#使用介绍" class="headerlink" title="使用介绍"></a>使用介绍</h3><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install grunt-jst-concat</span><br></pre></td></tr></table></figure>
+<p>载入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt.loadNpmTasks(<span class="string">'grunt-jst-concat'</span>);</span><br></pre></td></tr></table></figure>
+<p>配置 Task，示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">grunt.initConfig(&#123;</span><br><span class="line">  jst_concat: &#123;</span><br><span class="line">    options: &#123;</span><br><span class="line">      separator_start: <span class="string">'/**start**/'</span>,</span><br><span class="line">      separator_end: <span class="string">'/**end**/'</span>,</span><br><span class="line">      jst_path: <span class="string">'tmp/template/'</span>,</span><br><span class="line">      ext: <span class="string">".jst"</span>,</span><br><span class="line">      pattern: <span class="regexp">/CustomGetTemplateFn\s*\(\'(.*?).html\'\)/g</span>,</span><br><span class="line">      replace: <span class="function"><span class="keyword">function</span>(<span class="params">jst</span>)</span>&#123;</span><br><span class="line">        jst = jst.replace(<span class="string">'this.jst=this.jst||&#123;&#125;,'</span>, <span class="string">""</span>);</span><br><span class="line">        jst = jst.replace(<span class="regexp">/\n|\r/g</span>, <span class="string">""</span>);</span><br><span class="line">        <span class="keyword">return</span> jst;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    files: &#123;</span><br><span class="line">      <span class="string">'tmp/modules/ShopModule.js'</span>: [<span class="string">'test/fixtures/modules/ShopModule.js'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>配置变量说明</strong></p>
+<ul>
+<li>separator_start, separator_end : 前后的分割符</li>
+<li>jst_path : JST 文件目录</li>
+<li>ext : JST 文件后缀名</li>
+<li>pattern: 正则，找出使用到的模版列表</li>
+<li>replace: 函数，用于做一些替换工作，比如你不希望重复声明命名空间什么的</li>
+</ul>
+<p><em>修改模版文件获取方法</em></p>
+<p>将 JST 模版放到 JS 中，就不需要有任何的模版文件请求了，所以需要改造一下你的模版文件获取方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//utils.js</span></span><br><span class="line"><span class="keyword">var</span> CustomGetTemplateFn = <span class="function"><span class="keyword">function</span> (<span class="params">templateFileName</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (isPublish) &#123;</span><br><span class="line">		<span class="comment">//如果是发布状态，直接从 window["JST"] 取出模版JST返回</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">window</span>[<span class="string">"JST"</span>][<span class="string">"./template/"</span> + templateFileName + <span class="string">".tpl"</span>]</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> template = $.ajax(&#123;</span><br><span class="line">		url: <span class="string">"./template/"</span> + templateFileName + <span class="string">".tpl"</span>,</span><br><span class="line">		dataType: <span class="string">"script"</span>,</span><br><span class="line">		<span class="keyword">async</span>: <span class="literal">false</span></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> _.template(template);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Grunt 使用指南: <a href="http://willerce.com/post/grunt">http://willerce.com/post/grunt</a></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/Grunt/">Grunt</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

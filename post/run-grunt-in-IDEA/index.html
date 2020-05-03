@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › IDEA 中运行 Grunt 任务</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="IDEA 中运行 Grunt 任务">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">IDEA 中运行 Grunt 任务</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2013-08-22T16:00:00.000Z">2013年08月23日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>前端开发已经离不开 <a href="http://willerce.com/post/grunt">Grunt</a> 了，所以，继续武装  IDEA。之前写的 <a href="http://willerce.com/post/intellij-external-tools">IDEA 使用外部工具</a> 中介绍的方法已经可以实现<a href="http://stackoverflow.com/questions/17059487/how-to-setup-grunt-in-webstorm-on-windows" target="_blank" rel="noopener">调用 Grunt 命令</a>了，Grunt 任务大多是根据项目走的，而外部工具是全局定义的，稍显麻烦。IDEA 本身又支持运行、调试 Node.js 。所以我们可以通过配置运行项直接调用 Grunt。</p>
+<a id="more"></a>
+<p>###环境要求</p>
+<p>Node.js 开发运行环境，<a href="http://willerce.com/post/windows-install-nodejs-and-npm">Windows童鞋，NodeJS 环境配置教程</a>，*nux 的童鞋自找教程。</p>
+<p>IDEA 需要安装 Node 插件，如果是 WebStorm 好像已经自带 NodeJS 了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings &gt; Plugins &gt; Browse Repositories &gt; 搜索 NodeJS 右键 download and install</span><br></pre></td></tr></table></figure></p>
+<p>安装 grunt cli  工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install grunt-cli</span><br></pre></td></tr></table></figure></p>
+<p>###配置运行</p>
+<p>创建一个新的 Node.js 运行/调试配置：<code>Run-&gt;Edit configurations</code>，左侧点 + 图标，选择 Node.js</p>
+<ul>
+<li>Path To Node 选择你的 Nodejs 目录</li>
+<li>Working Directory 选择你的 Gruntfile.js 文件所在的目录</li>
+<li>Path to Node App JS File 选择你的 Grunt CLI 路径</li>
+<li>Application Parameters 选择你要加的参数，一般就是你要运行的 Task Name 啦</li>
+</ul>
+<p>以上路径，你如果不知道具体路径，阅读：<a href="http://willerce.com/post/windows-install-nodejs-and-npm">Windows，NodeJS 环境配置</a>，墙裂进入强迫症模式，自定义 node, npm 的目录。</p>
+<p>*nux 用户可以使用 which 命令找到路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> which node</span><br><span class="line">/usr/local/bin/node</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> which grunt</span><br><span class="line">/usr/local/bin/grunt</span><br></pre></td></tr></table></figure>
+<p>这是我在 Mac OS X 上的配置：</p>
+<p><img src="/uploads/2013/08/grunt-on-idea.png" alt="use grunt in IDEA"></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/IDEA/">IDEA</a>, <a class="mod-post__tag" href="/tags/grunt/">grunt</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

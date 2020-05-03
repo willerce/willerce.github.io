@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Windows，Scala 开发环境配置及简单入门</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Windows，Scala 开发环境配置及简单入门">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Windows，Scala 开发环境配置及简单入门</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2011-10-03T16:00:00.000Z">2011年10月04日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>Scala 是一种纯粹的面向对象编程语言，而又无缝地结合了命令式和函数式的编程风格。Scala 语言的名称来自于“可伸展的语言”，它可以运行在Java 平台上，Scala 程序会被编译为 JVM 的字节码。<a title="The Scala Programming Language" href="http://www.scala-lang.org/node/25" target="_blank">更多介绍</a></p>
+<p>##下载安装</p>
+<p>截止到目前为止，最新的发行版是  scala-2.9.1.final，可以访问 Scala 官方网站的<a href="http://www.scala-lang.org/downloads" target="_blank" rel="noopener">下载页面</a>下载到 zip包。</p>
+<p>将 Scala 的下载压缩包解压，并置于某一目录（我使用的是D:\scala\scala-2.9.1.final），然后设置环境变量，将 SCALA_HOME 设置为：D:\scala\scala-2.9.1.final，将 $SCALA_HOME$\bin 添加到Path环境变量中，打开命令行输入：scalac -version 测试，如果能够正确输出版本信息就OK了（如下图）。</p>
+<p><img class="alignnone size-full wp-image-2435" title="scalac-verison" src="/uploads/2011/10/scalac-verison.png" alt width="574" height="178"></p>
+<p>##使用 Scala 解释器</p>
+<p>了解 Scala 最简单的方式，就是使用 Scala 解释器，它是一个编写Scala表达式和程序的交互式“shell”。简单地在解释器里输入一个表达式，它将计算这个表达式并打印结果值。Scala的交互式shell就叫做scala。你可以在命令提示符里输入scala使用它：</p>
+<pre><code>Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+&gt;scala
+Welcome to Scala version 2.9.1.final (Java HotSpot(TM) Client VM, Java 1.6.0_27).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala&gt;
+</code></pre><p>在你输入表达式，如1 + 2，并敲了回车之后，将输出结果。<br>    scala&gt; 1 + 2<br>    res0: Int = 3<br>    scala&gt;</p>
+<p>##简单的 HelloWorld</p>
+<p>第一个例子，你不需要了解太多 Scala 语法，使用标准的 Hello World 程序来展示 Scala 语言的魅力。    </p>
+<pre><code>object HelloWorld {
+    def main(args: Array[String]) {
+    println(&quot;Hello, world!&quot;)
+    }
+}
+</code></pre><p>使用记事本，或者 NotePad++ 创建一个 hello.scala ，置于 C:\scala 目录下，使用 scala 命令运行。</p>
+<pre><code>&gt;cd c:\scala
+&gt;scala hello.scala
+Hello, world!
+</code></pre><p><img class="alignnone size-full wp-image-2438" title="scalac-run" src="/uploads/2011/10/scalac-run.png" alt width="574" height="200"></p>
+<p>《<a href="http://www.scala-lang.org/downloads/distrib/files/website/doc/ProgrammingInScala.pdf" target="_blank">programming in scala</a>》是一本很棒的 Scala 书籍，推荐阅读，电子工业出版社有出版该书中文版：《<a href="http://product.china-pub.com/197227" target="_blank" rel="noopener">Scala编程</a>》，也有PDF版，自行搜索下载。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/scala/">scala</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

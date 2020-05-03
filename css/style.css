@@ -1,0 +1,245 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+::selection {
+    background-color: #222;
+    color: #f9f9f9;
+}
+
+figure {
+    margin-left: 0;
+}
+
+html {
+    background-color: #fff;
+    min-height: 100%;
+}
+
+body {
+    max-width: 700px;
+    padding: 0 20px;
+    font: 400 16px/1.7 Georgia, system, -apple-system, BlinkMacSystemFont, "Xin Gothic", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    color: #444;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+a {
+    color: #111;
+    word-wrap: break-word;
+    -moz-text-decoration-color: rgba(0, 0, 0, .4);
+    text-decoration-color: rgba(0, 0, 0, .4);
+}
+
+a:hover {
+    color: #555;
+    -moz-text-decoration-color: rgba(0, 0, 0, .6);
+    text-decoration-color: rgba(0, 0, 0, .6);
+}
+
+body:before, body:after {
+    content: " ";
+    display: table
+}
+
+body:after {
+    clear: both
+}
+
+.mod-head {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.mod-head__title {
+    display: none;
+}
+
+.mod-head__nav {
+    display: inline-block;
+    margin-left: 43px;
+}
+
+.mod-head__ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mod-head__nav-item {
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+}
+
+.mod-head__nav-item:after {
+    padding: 0 6px 0 6px;
+    content: "·";
+}
+
+.mod-head__nav-item:last-child:after {
+    padding: 0;
+    content: "";
+}
+
+.mod-head__nav-item a {
+    color: #535353;
+    text-decoration: underline;
+    display: inline-block;
+    line-height: 28px;
+}
+
+.mod-head__nav-item a:hover {
+    color: #222;
+    border-color: #8cc1e0;
+}
+
+.mod-head__logo {
+    border-radius: 1.3rem;
+    display: inline-block;
+    background: #020201;
+    width: 26px;
+    height: 26px;
+    color: #fff;
+    vertical-align: top;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.mod-head__logo img {
+    border-radius: 13px;
+}
+
+.mod-archive__list li {
+    line-height: 30px;
+    margin-bottom: 2px;
+}
+
+.mod-archive__year {
+    color: #999;
+    font-family: Courier, Menlo, Monaco, Consolas, "Courier New", monospace;;
+}
+
+.mod-archive__time {
+    color: #666;
+    font-family: Courier, Menlo, Monaco, Consolas, "Courier New", monospace;;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 500px) {
+    .mod-archive__list li time,
+    .mod-archive__list li span {
+       display: none;
+    }
+}
+
+.mod-post {
+}
+
+.mod-post__page-links ul li {
+}
+
+.mod-post__title {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.mod-post__meta {
+    margin-bottom: 40px;
+    font-size: 14px;
+    color: #777;
+    line-height: 2em;
+}
+
+.mod-post__entry {
+    font-size: 18px;
+    text-align: justify;
+}
+
+.mod-post__tag {
+    text-decoration: none;
+    color: #777;
+    margin-right: 10px;
+}
+
+.mod-post__tag:before {
+    content: '#';
+    color: #999;
+}
+
+.mod-post__entry p {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.mod-post__entry strong {
+    color: #000;
+    font-weight: normal;
+}
+
+.mod-post__entry img {
+    max-width: 100%;
+}
+
+.mod-post__entry h2 {
+    font-size: 22px;
+}
+
+.mod-post__entry h3 {
+    font-size: 19px;
+}
+
+.mod-comment {
+}
+
+.mod-footer {
+    margin-top: 50px;
+    padding-bottom: 10px;
+    color: #888;
+    font-size: 13px;
+    font-family: Optima,Georgia,"Helvetica Neue",sans-serif;
+}
+
+.highlight pre {
+    margin: 1.64em 0;
+    border: 0;
+    padding: 9px 12px;
+    overflow: auto;
+    line-height: 1.8;
+    font-size: 14px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    color: #65737e;
+    background-color: #EFF1F5;
+    border-radius: 4px;
+}
+
+blockquote {
+    margin: 0 0 1.64em;
+    border-left: 4px solid #dadada;
+    color: #777;
+    padding-left: 20px;
+}
+
+
+@media screen and (max-width: 500px) {
+    .mod-head {
+        margin-bottom: 40px;
+    }
+    .mod-head__ul {
+        display: none;
+    }
+    .mod-post__entry {
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: justify;
+    }
+    .mod-post__entry p {
+        margin-bottom: 1.2em;
+    }
+}
+

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 在 ASP.NET 项目中使用 LESS</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="在 ASP.NET 项目中使用 LESS">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">在 ASP.NET 项目中使用 LESS</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-01-11T16:00:00.000Z">2012年01月12日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>LESS 将 CSS 赋予了动态语言的特性，如 变量， 继承， 运算， 函数. LESS 既可以在 客户端 上运行 (支持IE 6+, Webkit, Firefox)，也可以在服务端运行。</p>
+<p>访问：<a href="http://www.lesscss.net/" title="LESS中国官网" target="_blank" rel="noopener">LESS中国官网</a>， 下载 <a href="http://lesscss.googlecode.com/files/less-1.2.0.min.js" title="less.js" target="_blank" rel="noopener">less.js</a>（version 1.2.0）</p>
+<p>LESS 使用 JavaScript 引擎来处理代码，然后输出处理过的 CSS 到浏览器。很明显，这不是一个很好的方案，这需要额外的时间与性能损耗。有一种替代方案是在开发环节使用LESS，一旦完成了开发，复制 LESS 处理过的文件到一个单独的 CSS 文件。还有一种更方便的方法，就是让 LESS 在服务端运行，对处理后的 CSS 进行缓存。在 .NET 平台下，开源的组件 <a href="http://www.dotlesscss.org/" title="Less Css for .NET" target="_blank" rel="noopener">Less Css for .NET</a>  为我们实现这样的功能，可以在 <a href="http://github.com/dotless/dotless" target="_blank" rel="noopener">Github</a> 上查看源代码。</p>
+<p>##如何使用</p>
+<p>需要使用 Nuget 下载并引用  dotless ，（<a href="http://willerce.com/post/nuget" title="Nuget的使用介绍">Nuget的使用介绍</a>）</p>
+<pre><code>PM&gt; Install-Package dotless
+</code></pre><p>在视图层中引用 Less，就像样式表一样。</p>
+<pre><code>&lt;link href=&quot;/static/style.less&quot; rel=&quot;stylesheet&quot;&gt;&lt;/code&gt;
+</code></pre><p>开始 LESS 旅程吧。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

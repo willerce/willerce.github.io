@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › firefox和ie的css兼容问题</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="firefox和ie的css兼容问题">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">firefox和ie的css兼容问题</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2008-03-27T16:00:00.000Z">2008年03月28日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>对于某些内容可变的层（比如用户评论），我们希望它有个最小的高度（比如30px），这样的话，即使内容只有一行字，也不会太难看；同时又希望在内容比较多的时候，层的高度能自动撑开，也就是要求height: auto。这时候就可以设置css的min-height属性。min-height在Firefox里有效，但IE无法识别。可以使用下面这个解决方案：</p>
+<pre lang="css" line="1">
+.div_class{
+    min-height:30px;
+    height:auto !important;
+    height:30px;
+}
+</pre>
+
+<p>第一行设置 min-height:30px;对Firefox有效；第二行height:auto !important;也对Firefox有效，后面紧跟的“!important”是Firefox专用的一个标记，带有这个标记的设置具有最高优先级，之后的设置都无效。所以第三行的height:30px对Firefox无效了；同时，由于IE无法识别min-height和“! important”，所以只有第三行有效，由于IE默认就是高度自适应的，所以即使设置了30px的高度，只要内容很多，也会自动撑开，不需要设置 height:auto。最后，上述代码产生如下效果：<br><a id="more"></a><br>对于Firefox，等同于:</p>
+<pre lang="css" line="1">
+.div_class{
+    min-height:30px;
+    height:auto;
+}
+</pre>
+对于IE，等同于：
+<pre lang="css" line="1">
+.div_class{
+    height:30px;
+}
+</pre>
+
+<p>“!important” 是个非常好用的东西，如果你写过几个月的跨浏览器的CSS代码，就很容易被Firefox和IE之间的差别而感到恼火。比如padding属性就是一个例子。</p>
+<p>假设这样一个层：</p>
+<pre lang="css" line="1">
+.div_name {
+    width:100px;
+    padding:10px;
+}
+</pre>
+
+<p>在IE里面，层的宽度是100px，四周的余空为10px；但是对于Firefox，层的宽度变成了100px+10px+10px=120px，对于宽度敏感的设计来说，整个就混乱了。怎么办呢？还是求助于“!important”吧。只要这样写就可以了：</p>
+<p><pre lang="css" line="1"><br>.div_name {<br>    width:80px !important;<br>    width:100px;<br>    padding:10px;<br>}<br></pre><br>因为80+10+10=100。正好让宽度 变成100px。</p>
+<p>有时候，我们给一个层加上边框 ，在Firefox里面也会出现宽度增加的情况，比如：</p>
+<p><pre lang="css" line="1"><br>.div_name {<br>    width:100px;<br>    padding:10px;<br>    border:2px solid #ccc;<br>}<br></pre><br>上面这个层，在Firefox里面的实际宽度等于100+10+10+2+2=124px，因为边框也会增加宽度。怎么办呢，还是靠“!important”，这样写就可以了：</p>
+<p><pre lang="css" line="1"><br>.div_name {<br>    width:76px !important;<br>    width:100px;<br>    padding:10px;<br>    border:2px solid #ccc;<br>}<br></pre><br>写CSS经常要做这样的计算，还要写很多!important，苦了设计师们，什么时候IE和Firefox的CSS标准统一就好了。</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/css/">css</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

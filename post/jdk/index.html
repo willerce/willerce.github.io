@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › Java Development Kit(JDK)下载及环境设置</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Java Development Kit(JDK)下载及环境设置">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">Java Development Kit(JDK)下载及环境设置</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2009-09-29T16:00:00.000Z">2009年09月30日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p><img style="float:right;" title="java" src="/uploads/2009/09/130px-Java_logo.svg.png" alt width="91" height="167"><br><a href="http://zh.wikipedia.org/wiki/JDK" target="_blank" rel="noopener">什么是JDK?</a></p>
+<p>Java Development Kit (JDK) 是Sun公司针对Java开发员的产品。自从Java推出以来，JDK已经成为使用最广泛的Java SDK（Software development kit）。</p>
+<p>JDK包含的基本组件包括：</p>
+<ul><br>    <li>javac – 编译器，将源程序转成字节码</li><br>    <li>jar – 打包工具，将相关的类文件打包成一个文件</li><br>    <li>javadoc – 文档生成器，从源码注释中提取文档</li><br>    <li>jdb – debugger，查错工具</li><br></ul>
+
+<p>JDK中还包括完整的JRE（Java Runtime Environment，Java运行环境），也被称为 private runtime。包括了用于产品环境的各种库类，以及给开发员使用的补充库，如国际化的库、IDL库。JDK中还包括各种例子程序，用以展示Java API中的各部分。</p>
+<p>###下载安装JDK</p>
+<p>JDK版本更新频繁，这里不提供直接地址，下载请向往 Oracle 官方<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">下载页面</a>，打开页面后,找到[Java Se Development Kit(JDK)]，选择你的系统适用的JDK版本下载后，一路下一步即可。</p>
+<p>需要注意的是，在选择安装路径时，不要使用 <code>C:\Program Files\java</code> 这样带空格的路径。本文中，我们使用目录 <code>C:\java\jdk1.6.0_27</code></p>
+<p>###JDK环境配置</p>
+<p>以XP为例，右击我的电脑，选择属性，再选择高级，再点击环境变量，分别设置如下三个环境变量：</p>
+<p>（1）设置JAVA_HOME变量，大多数的Java应用程序，工具都需要这个环境变量来保证正常的运行，如：IntelliJ IDEA ，Maven 等 。另外，设置这JAVA_HOME后，以后JDK版本升级造成的路径变动，只需修改此变量即可。</p>
+<p>变量名：JAVA_HOME<br>变量值：C:\java\jdk1.6.0_27</p>
+<p>（2）设置 PATH 变量，使得我们能够在系统中的任何地方运行java应用程序，比如 javac、java、javah 等等。因此，我们需要把<code>C:\java\jdk1.6.0_27\bin</code> 这个目录加到path环境变量里面。因为我们已经设置过JAVA_HOME变量，所以只需使用 <code>%JAVA_HOME%\bin</code> 即可。</p>
+<p>在系统变量里找到path变量,选择-&gt;编辑；(里面已经有很多的变量值,是在变量值的最前面加上 %JAVA_HOME%\bin;)</p>
+<pre><code>变量名：path
+变量值：%JAVA_HOME%\bin;
+</code></pre><p>（3）classpath 环境变量，是当我们在开发java程序时需要引用别人写好的类时，要让java解释器知道到哪里去找这个类。通常，sun为我们提供了一些额外的丰富的类包，一个是 dt.jar，一个是 tools.jar，这两个jar包都位于 lib目录下，所以通常我们都会把这两个jar包加到我们的classpath环境变量中。</p>
+<p>在系统环境变量那一栏中点-&gt;新建classpath</p>
+<pre><code>变量名：classpath
+变量值：%JAVA_HOME%\bin;%JAVA_HOME%\lib;%JAVA_HOME%\dt.jar;%JAVA_HOME%\tools.jar;
+</code></pre><p>###测试</p>
+<p>新建一个记事本，并命名为hello.java，复制到某文件夹中，这里，我们以 <code>D:\hello\</code> 为例。<strong>注意：</strong>一定要是.java的后缀。</p>
+<p>直接用记事本打开，把以下内容复制到其中。</p>
+<pre><code>public class hello {
+    public static void main(String []arg){
+        System.out.println(&quot;我才不用Hello,World呢！&quot;);
+    }
+}
+</code></pre><p>在“开始”——“运行“中输入CMD打开命令框，并输入命令。</p>
+<pre><code>--&gt; D:
+--&gt; cd hello
+--&gt; javac hello.java
+--&gt; java hello
+</code></pre><p><img src="/uploads/2009/09/3971126846_b7b2f8dd27.jpg" alt></p>
+<p>正常输出“我才不用Hello,World呢！”， 我们的JDK环境设置就成功地完成了。</p>
+<p>###更新记录</p>
+<ol>
+<li>2011/09/27：更新了JAVA_HOME变量的相关设置内容</li>
+<li>2013/06/03：更新了JAVA_HOME错误拼写，精简描述</li>
+</ol>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/jdk/">jdk</a>, <a class="mod-post__tag" href="/tags/java/">java</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › C#实体类代码生成小工具源码</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="C#实体类代码生成小工具源码">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">C#实体类代码生成小工具源码</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2010-09-16T16:00:00.000Z">2010年09月17日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>前段时间在学习ASP.NET时经常重复做三层搭建这种没技术含量的活，最恶心的就是编写实体类了，再这样下去就要变成纯粹的码农了。上网搜集了一些资料后，使用C#制作了这个小工具。<br>其实网络上已经有很多网友编写了类似的工具，再强大一点的还有<a href="http://www.google.com/search?sourceid=chrome&amp;ie=UTF-8&amp;q=%E5%8A%A8%E8%BD%AF%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8" target="_blank" rel="noopener">动软代码生成器</a>等代码生成软件，所以你如果对我愿意多向这些丑代码抛几次媚眼，我可以肯定：你，不是码农。</p>
+<p>有几点我觉得有必要提醒一下：</p>
+<p><ul><br>    <li><strong>代码很乱，所以你如果想看懂的话，可能需要多花点心思。</strong></li><br>    <li>你需要打开解决方案修改一下sqlConnectionString，使用Visual Studio 2008，而且只支持SQLServer。</li><br>    <li>生成的代码只有主体部分，有以下三个部分的内容</li></ul></p>
+<p><ul><br>    <li>无参构造器</li><br>    <li>有参构造器（带全部属性）</li><br>    <li>字段</li><br>    <li>方法</li><br></ul><br><br>    <li>在命名规则方面，遵循约定俗成的命名规则。但有一些个人习惯，所以你如果计划使用这个小工具，需要做一些修改，</li></p>
+<p><ul><br>    <li>构造函数名使用<code>表名+Data</code>，比如<code>public StudentData()</code>。</li><br>    <li>所有的参数前面都加上了一个<code>v</code>，比如<code>public void Method(String vName, int vAge)</code></li><br>    <li>字段前加下划线_，比如<code>private int _age</code></li><br></ul><br><br>    <li>如果你在SQLServer中对每个字段进行了说明，那么在带参构造器前可以进行注释。</li><br><br>源文件下载地址：<a href="http://www.boxcn.net/shared/hs0fayxy7q" target="_blank" rel="noopener">http://www.boxcn.net/shared/hs0fayxy7q</a><br>贴上最主要的一个方法，生成实体类代码内容：<br><a id="more"></a></p>
+<pre lang="csharp">///
+<summary> /// 获取实体类代码 /// </summary>
+
+///要查询的表名
+/// 返回生成的实体类主体代码
+public string getDataTable(string tableName)
+{
+    //打开数据库连接
+    StringBuilder sb = new StringBuilder(); //保存封装后的代码
+    using (SqlConnection con = new SqlConnection("server=" + SERVER + ";database="+this.cboDataBase.Text+";uid=" + UID + ";pwd=" + PWD))
+    {
+        con.Open();
+        string selectQuery = "select * from [" + tableName+"]";
+        SqlCommand command = new SqlCommand(selectQuery, con);
+        SqlDataAdapter ad = new SqlDataAdapter(command);
+        DataSet ds = new DataSet();
+
+        ad.FillSchema(ds, SchemaType.Mapped);   //填充
+
+        //构造器
+        sb.Append("///
+<summary>" + Environment.NewLine + "/// 无参构造器" + Environment.NewLine + "/// </summary>
+
+" + Environment.NewLine + "public " + getPascal(tableName) + "Data () { }" + Environment.NewLine + Environment.NewLine);
+        sb.Append("///
+<summary>" + Environment.NewLine + "/// 带参构造函数" + Environment.NewLine + "/// </summary>
+
+" + Environment.NewLine);
+
+        //循环读取字段,进行构造器注释初始化
+        foreach (DataColumn dc in ds.Tables[0].Columns)
+        {
+            sb.Append("///" + getDBDesc(dc.ColumnName) + "" + Environment.NewLine);
+        }
+        //有参构造器声明
+        sb.Append("public " + getPascal(tableName) + "Data (");
+
+        //有参构造器参数列表
+        foreach (DataColumn dc in ds.Tables[0].Columns)
+        {
+            sb.Append(ChangeToCSharpType(dc.DataType.Name) + " v" + getPascal(dc.ColumnName)+", ");
+        }
+        sb.Remove(sb.Length - 2, 2);
+        sb.Append(")"+Environment.NewLine+"{"+Environment.NewLine);
+        //有参构造器内容
+        foreach (DataColumn dc in ds.Tables[0].Columns)
+        {
+            sb.Append("\tthis." + getPascal(dc.ColumnName) + " = v" + getPascal(dc.ColumnName) + ";" + Environment.NewLine);
+        }
+        sb.Append(Environment.NewLine + "}" + Environment.NewLine + Environment.NewLine);
+
+        //循环读取字段,进行字段属性封装
+        foreach (DataColumn dc in ds.Tables[0].Columns)
+        {
+            sb.Append("private " + ChangeToCSharpType(dc.DataType.Name) + " " + getCamel(dc.ColumnName)+";" + Environment.NewLine);
+            sb.Append("public " + ChangeToCSharpType(dc.DataType.Name) + " " + getPascal(dc.ColumnName) + Environment.NewLine);
+
+            sb.Append("{" + Environment.NewLine);
+            sb.Append("\tget{ return "+ getCamel(dc.ColumnName) + ";}" + Environment.NewLine);
+            sb.Append("\tset{ " + getCamel(dc.ColumnName) + " = value;}" + Environment.NewLine);
+            sb.Append("}" + Environment.NewLine + Environment.NewLine);
+        }
+        con.Close();
+     }
+    return sb.ToString();
+}</pre>
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

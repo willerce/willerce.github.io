@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › IDEA 字体美化</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="IDEA 字体美化">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">IDEA 字体美化</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-10-08T16:00:00.000Z">2012年10月09日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>IDEA的中文字体一直不能让人满意。把字体改为 YaHei Consolas ，但英文的行距，字粗等方面的渲染依然不够理想，刚开始以为是 Consolas 的原因，就上 <a href="http://www.v2ex.com/t/48960" target="_blank" rel="noopener">V2EX</a> 问了一下，才知道，Monospaced 不是一个字体，而是一个字体类别，IntelliJ IDE 的字体，可以通过修改 fontconfig.properties 来定义一系列的字体类别顺序，使英文使用一种字体，中文使用另一种字体。</p>
+<p>此方法也适用于 JetBrains 家的其它 IDE，<a href="http://www.jetbrains.com/idea/" target="_blank">IntelliJ Idea</a>, <a href="http://www.jetbrains.com/pycharm/" target="_blank">PyCharm</a>, <a href="http://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a>, <a href="http://www.jetbrains.com/phpstorm/" target="_blank">PhpStorm</a>, <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a>, <a href="http://www.jetbrains.com/objc/" target="_blank">AppCode</a></p>
+<p><img src="http://blog.jetbrains.com/webide/files/2012/11/available_in_products1.png"></p>
+<p>英文好的童鞋，可以看 Oracle 官方对 <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/intl/fontconfig.html" target="_blank" rel="noopener">Font Configuration Files</a> 的说明。</p>
+<p>以下以 IDEA 为例，说明配置中文字体为“微软雅黑”，英文字体为 “Courier New“ 的步骤。适用于 Windows 7。</p>
+<h3 id="一、找到你的-IDEA-使用的-JDK-JRE-里的-lib-目录"><a href="#一、找到你的-IDEA-使用的-JDK-JRE-里的-lib-目录" class="headerlink" title="一、找到你的 IDEA 使用的 JDK / JRE 里的 lib 目录"></a>一、找到你的 IDEA 使用的 JDK / JRE 里的 lib 目录</h3><p>IntelliJ 家的 IDE，都自带了 JRE ，所以正常情况下，IDEA 使用的 JRE 目录就在你的IDEA根目录的jre里。我的路径是： D:\soft\JetBrains\IntelliJ IDEA\jre\jre\lib （下文涉及到这个路径的，请主动更换为你自己的实际路径）</p>
+<h3 id="二、修改-fontconfig-properties"><a href="#二、修改-fontconfig-properties" class="headerlink" title="二、修改 fontconfig.properties"></a>二、修改 fontconfig.properties</h3><p>找开 D:\soft\JetBrains\IntelliJ IDEA\jre\jre\lib ，把 fontconfig 开头的几个不同后缀的文件全部改名，或者转移到其它目录备份。下载我提供的<a href="https://gist.github.com/3856818" target="_blank" rel="noopener">这个文件</a>，解压后，将 fontconfig.properties 扔到 D:\soft\JetBrains\IntelliJ IDEA\jre\jre\lib 目录下。重启 IDEA，打开设置。将字体设置为 Monospaced 即可。</p>
+<a id="more"></a>
+<h3 id="三、修改自己想要的字体"><a href="#三、修改自己想要的字体" class="headerlink" title="三、修改自己想要的字体"></a>三、修改自己想要的字体</h3><p>打开 fontconfig.properties ，把 133~136 行首的#号删除，在 139~142的行首加上#号即可，重启 IDEA，英文字体就变成 Consolas 了。</p>
+<p>通过上一步，就应该就会知道，修改这 4 行即可更换英文字体。我们试着自定义一个新安装的字体 MONACO。在文件未加上以下内容</p>
+<pre><code>filename.Monaco=MONACO.TTF
+filename.Monaco_Bold=MONACO.TTF
+filename.Monaco_Italic=MONACO.TTF
+filename.Monaco_Bold_Italic=MONACO.TTF
+</code></pre><p>然后，把 139~142 行替换为</p>
+<pre><code>monospaced.plain.alphabetic=Monaco
+monospaced.bold.alphabetic=Monaco Bold
+monospaced.italic.alphabetic=Monaco Italic
+monospaced.bolditalic.alphabetic=Monaco Bold Italic
+</code></pre><p>重启 IDEA，英文字体即变成 Monaco。</p>
+<p>###最后的效果截图</p>
+<p>Courier New + 微软雅黑<br><br><img src="/uploads/2012/10/intellij-ide-fontconfig-screen.png" alt="fontconfig screenshot" height="335" width="493"></p>
+<p>Monaco + 微软雅黑<br><br><img src="/uploads/2012/10/intellij-ide-fontconfig-screen2.png" alt="fontconfig screenshot" height="335" width="493"></p>
+<p>###更新记录<br>2012-10-11：修正了 windows 7 中文的 BUG</p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/IDEA/">IDEA</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

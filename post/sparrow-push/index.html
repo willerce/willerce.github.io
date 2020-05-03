@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 开启 Sparrow 原生推送功能</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="开启 Sparrow 原生推送功能">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">开启 Sparrow 原生推送功能</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2012-06-22T16:00:00.000Z">2012年06月23日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>Sparrow for iPhone 最初的版本没有推送功能，且只支持 IMAP，但依然好评如潮，最新版本 1.3 增加了对 POP 协议的支持，这次乘着冰点降价，我也入了一个。</p>
+<p>很难想像，一个移动邮件客户端不支持 push 还有什么理由用它？  为什么不支持 push ? Sparrow 团队是这样解释的：</p>
+<blockquote>
+<p>最主要的原因是它表示如果要用 push，它需要把大家的账号密码存在它的服务器上，考虑到安全的原因，他们目前没有这个能力去保证用户的安全，他们很难承受这个风险。他们也尝试了另外一种方式的 API，但苹果审查的时候表示这样做会与原生软件有重复的功能，不能上架，因此呢，他们只好暂时没有 push。这让我们再一次看到了开发者的态度。</p>
+</blockquote>
+<p>废话这么多，回到正题，开启 Sparrow Push 功能，几个月前就可以通过 Cydia 安装第三方插件来实现了。而实际上， Sparrow 程序中已经包含了推送功能，但是在 Info.plist 里没有配置相关的推送设置，这应该是为了应对苹果的审核。</p>
+<p>现在，我们需要做的就是修改 Info.plist 文件。</p>
+<p>使用<a href="http://www.tongbu.com" target="_blank" rel="noopener">同步助手</a>打开文件管理，定位到 /var/mobile/Applications/Sparrow/Sparrow.app/ ，输入<code>i</code>，快速定位到 <code>Info.plist</code> ，右键 =&gt; 使用内置编辑器编辑。</p>
+<a id="more"></a>
+<p><img src="/uploads/2012/06/sparrow-push-1.jpg" alt="步骤一"></p>
+<p>找到 <code>&lt;key&gt;UIDeviceFamily&lt;/key&gt;</code> 这一行, 在上面加入</p>
+<pre><code>&lt;key&gt;UIBackgroundModes&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;voip&lt;/string&gt;
+    &lt;string&gt;audio&lt;/string&gt;
+    &lt;string&gt;continuous&lt;/string&gt;
+&lt;/array&gt;
+</code></pre><p><img src="/uploads/2012/06/sparrow-push-2.jpg" alt="步骤二"></p>
+<p>保存后，重启手机，打开 Sparrow 的设置界面，出现了 Data 设置区域即完成。</p>
+<p><img src="/uploads/2012/06/sparrow-push-3.jpg" alt="截图"></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/sparrow/">sparrow</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>未志 › 巧用 Grunt Options</title>
+  <meta name="author" content="WillerceZ">
+  
+  <meta name="description" content="记录生活、技术">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="巧用 Grunt Options">
+  <meta property="og:site_name" content="未志">
+
+  
+    <meta property="og:image" content>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="http://feeds.feedburner.com/willerce" title="未志" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32857089-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+</html>
+<body>
+  <header id="header"><header class="mod-head">
+  <h1 class="mod-head__title"><a href="/">未志</a></h1>
+  <div class="mod-head__logo">
+    <a href="/">
+      <img class="avatar" src="http://tp3.sinaimg.cn/1238766650/180/40026708039/1" alt="" width="26" height="26">
+    </a>
+  </div>
+  <nav class="mod-head__nav">
+    <ul class="mod-head__ul">
+      
+        <li class="mod-head__nav-item"><a href="/about">关于我</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/archives">文章归档</a></li>
+      
+        <li class="mod-head__nav-item"><a href="/links">有情链接</a></li>
+      
+    </ul>
+  </nav>
+</header></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="mod-post__title">巧用 Grunt Options</h1>
+  
+
+      
+      <div class="mod-post__meta" datetime="2013-10-23T00:00:00.000Z">2013年10月23日</time>
+      
+    </header>
+    <div class="mod-post__entry">
+      
+        <p>感谢<a href="http://bigc.at/" target="_blank" rel="noopener">大猫</a>，博客终于有内容写了。</p>
+<p><strong>重构的项目一般有以下特点：</strong></p>
+<ul>
+<li>各种大小项目加起来绕地球好几圈儿（<a href="http://zlz.im/" target="_blank" rel="noopener">@hzlzh</a>发音）</li>
+<li>项目目录一致，因为团队都有房事指南</li>
+<li>Grunt 常用任务就那么几个，任务配置高度一致</li>
+</ul>
+<p><strong>不是我们事儿逼，看这些真的很不爽：</strong></p>
+<ul>
+<li>node_modules, Gruntfile.js 高度一致，你怎么受得鸟？</li>
+<li>对于重构来说 package.json 接近残废，这里的作用 npm install 提供依赖</li>
+<li>每次优化任务配置，带来的是几十个项目配置文件同时修改</li>
+<li>NPM Task Module 更新，每个项目都得跑一次 npm update</li>
+</ul>
+<p><strong>于是我们希望达到这样的效果：</strong></p>
+<ul>
+<li>workspace 下保留一份 node_modules, Gruntfile.js, package.json</li>
+<li>必须支持个别项目独特立行的 task target.</li>
+</ul>
+<a id="more"></a>
+<p>工作目录是这样的！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/* Workspace Structure</span><br><span class="line">├── proj-A</span><br><span class="line">│   ├── css</span><br><span class="line">│   ├── img</span><br><span class="line">│   ├── node_modules</span><br><span class="line">│   ├── Gruntfile.js</span><br><span class="line">│   └── package.json</span><br><span class="line">├── proj-B</span><br><span class="line">│   ├── css</span><br><span class="line">│   ├── img</span><br><span class="line">│   ├── node_modules</span><br><span class="line">│   ├── Gruntfile.js</span><br><span class="line">│   └── package.json</span><br><span class="line">├── proj-C</span><br><span class="line">│   ├── css</span><br><span class="line">│   ├── img</span><br><span class="line">│   ├── node_modules</span><br><span class="line">│   ├── Gruntfile.js</span><br><span class="line">│   └── package.json</span><br><span class="line">└── README.md</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>前戏太久，硬货来了~~~~</p>
+<h3 id="一、使用软链接"><a href="#一、使用软链接" class="headerlink" title="一、使用软链接"></a>一、使用软链接</h3><p><a href="http://zlz.im/" target="_blank" rel="noopener">@hzlzh</a> 提出的方案，只需要在 workspace 根目录保留一份。但有个小问题，不灵活，如果某个项目需要单独配置，就比较麻烦了。</p>
+<p>另外，大猫说：Windows 下软连接会被 SVN 软件破坏掉。</p>
+<h3 id="二、使用全局配置，子项目引用"><a href="#二、使用全局配置，子项目引用" class="headerlink" title="二、使用全局配置，子项目引用"></a>二、使用全局配置，子项目引用</h3><p>在 workspace 根保留 GruntConfig.js，子项目中导入。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var globalConfig = require(&apos;../GruntConfig.js&apos;);</span><br><span class="line"></span><br><span class="line">//如果需要单独配置，或者覆盖都可以这么干。</span><br><span class="line">globalConfig.watch = &#123;</span><br><span class="line">	files: &apos;css/*.less&apos;,</span><br><span class="line">	tasks: [&apos;less&apos;, &apos;cssmin&apos;, &apos;copy&apos;, &apos;cleanup&apos;,&apos;pngmin&apos;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Grunt.initConfig(globalConfig);</span><br></pre></td></tr></table></figure>
+<p>Gruntfile.js 可以导入全局的配置了，但是 Gruntfile.js、node_modules 还是人手一份。<br>node_modules 也可以通过 Grunt.loadTasks() 调用指定目录的全局模块，但依然感觉略显不优雅。</p>
+<h3 id="三、使用-Grunt-Option"><a href="#三、使用-Grunt-Option" class="headerlink" title="三、使用 Grunt Option"></a>三、使用 Grunt Option</h3><p>直接上代码，不同项目打开自己的 URL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">module.exports = function(grunt)&#123;</span><br><span class="line">  var folder = grunt.option(&apos;folder&apos;) || &apos;default&apos;;</span><br><span class="line">  var file = grunt.option(&apos;file&apos;) || &apos;file&apos;;</span><br><span class="line"></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line">    open: &#123;</span><br><span class="line">      server :&#123;</span><br><span class="line">        path: &apos;http://127.0.0.1:8888/&apos; + folder + &quot;/&quot; + file</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  grunt.loadNpmTasks(&apos;grunt-open&apos;);</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt deploy --folder=f --file=index.html</span><br></pre></td></tr></table></figure>
+<p>如果其中某一个项目需要特别的配置呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var target = grunt.option(&apos;target&apos;) || &apos;default&apos;;</span><br><span class="line">var folder = grunt.option(&apos;folder&apos;) || &apos;default&apos;;</span><br><span class="line">var file = grunt.option(&apos;file&apos;) || &apos;file&apos;;</span><br><span class="line"></span><br><span class="line">grunt.initConfig(&#123;</span><br><span class="line">  open: &#123;</span><br><span class="line">    default :&#123;</span><br><span class="line">      path: &apos;http://127.0.0.1:8888/&apos;+folder+&quot;/&quot;+file</span><br><span class="line">    &#125;,</span><br><span class="line">    sb :&#123;</span><br><span class="line">      path: &apos;http://127.0.0.1:8888/sb/&apos;+folder+&quot;/&quot;+file</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">grunt.registerTask(&apos;deploy&apos;, [&apos;open:&apos; + target]);</span><br><span class="line"></span><br><span class="line">grunt.loadNpmTasks(&apos;grunt-open&apos;);</span><br></pre></td></tr></table></figure>
+<p>调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt deploy --target=sb --folder=f --file=index.html</span><br></pre></td></tr></table></figure></p>
+<p>参考资源：<a href="http://gruntjs.com/api/grunt.option" target="_blank" rel="noopener">http://gruntjs.com/api/grunt.option</a></p>
+
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+      
+      
+  
+  <div class="tags">
+    <a class="mod-post__tag" href="/tags/grunt/">grunt</a>
+  </div>
+
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    
+  </div>
+</article>
+
+
+<section id="comment">
+  
+            <!-- Duoshuo Comment BEGIN -->
+            <div class="ds-thread"></div>
+            <script type="text/javascript">
+                var duoshuoQuery = {short_name:"willerce"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = 'http://static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <!-- Duoshuo Comment END -->
+      
+  
+</section>
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="mod-footer"><div class="inner"><div class="alignleft">
+  <p>
+  
+    &copy; 2020 WillerceZ
+  
+  </p>
+  <p>
+    <a href="http://github.com/willerce/hexo-theme-noderce">Noderce</a> Theme By <a href="http://willerce.com" >willerce</a>
+  </p>
+
+</div>
+<div class="clearfix"></div></div></footer>
+  <script type="text/javascript">
+
+</script>
+
+</body>
+</html>
